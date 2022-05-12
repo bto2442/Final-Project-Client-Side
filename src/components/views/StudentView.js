@@ -18,7 +18,7 @@ const StudentView = (props) => {
         <img src={student.imageUrl} alt="student"></img>
         <h2>Email: {student.email}</h2>
         <h2>GPA: {student.gpa}</h2>
-        <h2>This student does belong to a campus</h2>
+        <h2>This student does not belong to a campus</h2>
       </div>
     );
   }

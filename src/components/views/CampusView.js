@@ -17,7 +17,7 @@ const CampusView = (props) => {
         <h1>{campus.name}</h1>
         <p>{campus.address}</p>
         <p>{campus.description}</p>
-        <img src={campus.imageUrl}></img>
+        <img src={campus.imageUrl} alt="campus"></img>
         <p>There are no students.</p>
       </div>
     );
