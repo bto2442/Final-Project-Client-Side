@@ -48,17 +48,18 @@ class NewCampusContainer extends Component {
     };
     
     // Add new campus in back-end database
-    let newCampus = await this.props.addCampus(campus);
-
-    // Update state, and trigger redirect to show the new campus
-    this.setState({
-      name: "", 
-      address: "", 
-      description: "",
-      imageUrl:"", 
-      redirect: true, 
-      redirectId: newCampus.id
-    });
+    await this.props.addCampus(campus)
+      .then(newCampus => {
+        // Update state, and trigger redirect to show the new campus
+          this.setState({
+            name: "", 
+            address: "", 
+            description: "",
+            imageUrl:"", 
+            redirect: true, 
+            redirectId: newCampus.id
+        });
+      })
   }
 
   // Unmount when the component is being removed from the DOM:
