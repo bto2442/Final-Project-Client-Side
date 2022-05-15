@@ -20,6 +20,9 @@ class NewStudentContainer extends Component {
     this.state = {
       firstname: "", 
       lastname: "", 
+      email: "",
+      imageUrl: "",
+      gpa:"",
       campusId: null, 
       redirect: false, 
       redirectId: null
@@ -40,7 +43,10 @@ class NewStudentContainer extends Component {
     let student = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        campusId: this.state.campusId
+        campusId: this.state.campusId,
+        email:this.state.email,
+        gpa: this.state.gpa,
+      
     };
     
     // Add new student in back-end database
@@ -49,7 +55,10 @@ class NewStudentContainer extends Component {
     // Update state, and trigger redirect to show the new student
     this.setState({
       firstname: "", 
-      lastname: "", 
+      lastname: "",
+      email: "",
+      imageUrl: "",
+      gpa:"", 
       campusId: null, 
       redirect: true, 
       redirectId: newStudent.id
@@ -65,7 +74,7 @@ class NewStudentContainer extends Component {
   render() {
     // Redirect to new student's page after submit
     if(this.state.redirect) {
-      return (<Redirect to={`/student/${this.state.redirectId}`}/>)
+      return (<Redirect to={`/students/${this.state.redirectId}`}/>)
     }
 
     // Display the input form via the corresponding View component

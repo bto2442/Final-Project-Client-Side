@@ -20,7 +20,8 @@ class NewCampusContainer extends Component {
     this.state = {
       name: "", 
       address: "", 
-      description: "", 
+      description: "",
+      imageUrl:"",
       redirect: false, 
       redirectId: null
     };
@@ -50,7 +51,8 @@ class NewCampusContainer extends Component {
     this.setState({
       name: "", 
       address: "", 
-      description: "", 
+      description: "",
+      imageUrl:"", 
       redirect: true, 
       redirectId: newCampus.id
     });
@@ -65,7 +67,7 @@ class NewCampusContainer extends Component {
   render() {
     // Redirect to new campus's page after submit
     if(this.state.redirect) {
-      return (<Redirect to={`/campus/${this.state.redirectId}`}/>)
+      return (<Redirect to={`/campuses/${this.state.redirectId}`}/>)
     }
 
     // Display the input form via the corresponding View component
