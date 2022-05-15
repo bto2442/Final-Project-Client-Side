@@ -33,7 +33,6 @@ const useStyles = makeStyles( () => ({
     padding: '3px'
   },
 }));
-
 const NewStudentView = (props) => {
   const {handleChange, handleSubmit } = props;
   const classes = useStyles();
@@ -72,7 +71,7 @@ const NewStudentView = (props) => {
             <br/>
 
             <label style={{color:'#11153e', fontWeight: 'bold'}}>GPA: </label>
-            <input type="text" name="gpa" onChange={(e) => handleChange(e)} />
+            <input type="number" name="gpa" min="0.0" max="4.0" step="0.1" onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
 

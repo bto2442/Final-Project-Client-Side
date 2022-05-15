@@ -38,34 +38,54 @@ class NewStudentContainer extends Component {
 
   // Take action after user click the submit button
   handleSubmit = async event => {
-    event.preventDefault();  // Prevent browser reload/refresh after submit.
-
-    let student = {
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        campusId: this.state.campusId,
-        email:this.state.email,
-        gpa: this.state.gpa,
-      
-    };
-    if(this.state.imageUrl!== ""){
-      student.imageUrl=this.state.imageUrl;
-    };
+    let validate=true;
+    if(this.state.firstname===""){
+      alert("firstname cannot be empty");
+      validate=false;
+    }
+    if(this.state.lastname===""){
+      alert("lastname cannot be empty");
+      validate=false;
+    }
+    if(this.state.email===""){
+      alert("email cannot be empty");
+      validate=false;
+    }
+    if(validate){
+      event.preventDefault();  // Prevent browser reload/refresh after submit.
     
-    // Add new student in back-end database
-    let newStudent = await this.props.addStudent(student);
-
-    // Update state, and trigger redirect to show the new student
-    this.setState({
-      firstname: "", 
-      lastname: "",
-      email: "",
-      imageUrl: "",
-      gpa:"", 
-      campusId: null, 
-      redirect: true, 
-      redirectId: newStudent.id
-    });
+      let student = {
+          firstname: this.state.firstname,
+          lastname: this.state.lastname,
+          campusId: this.state.campusId,
+          email:this.state.email,
+          
+      };
+      if(this.state.imageUrl!== ""){
+        student.imageUrl=this.state.imageUrl;
+      };
+      if(this.state.gpa!==""){
+        student.gpa=this.state.gpa;
+      }
+      // Add new student in back-end database
+      let newStudent = await this.props.addStudent(student);
+  
+      // Update state, and trigger redirect to show the new student
+      this.setState({
+        firstname: "", 
+        lastname: "",
+        email: "",
+        imageUrl: "",
+        gpa:"", 
+        campusId: null, 
+        redirect: true, 
+        redirectId: newStudent.id
+      });
+    }
+    else{
+      event.returnValue = false
+    }
+    
   }
 
   // Unmount when the component is being removed from the DOM:
