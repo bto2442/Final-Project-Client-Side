@@ -39,16 +39,17 @@ class NewStudentContainer extends Component {
   // Take action after user click the submit button
   handleSubmit = async event => {
     let validate=true;
+    let string="";
     if(this.state.firstname===""){
-      alert("firstname cannot be empty");
+      string+="firstname cannot be empty \n";
       validate=false;
     }
     if(this.state.lastname===""){
-      alert("lastname cannot be empty");
+      string+="lastname cannot be empty \n";
       validate=false;
     }
     if(this.state.email===""){
-      alert("email cannot be empty");
+      string+="email cannot be empty \n";
       validate=false;
     }
     if(validate){
@@ -83,6 +84,7 @@ class NewStudentContainer extends Component {
       });
     }
     else{
+      alert(string);
       event.returnValue = false
     }
     
