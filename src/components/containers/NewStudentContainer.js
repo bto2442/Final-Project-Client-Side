@@ -48,6 +48,9 @@ class NewStudentContainer extends Component {
         gpa: this.state.gpa,
       
     };
+    if(this.state.imageUrl!== ""){
+      student.imageUrl=this.state.imageUrl;
+    };
     
     // Add new student in back-end database
     let newStudent = await this.props.addStudent(student);

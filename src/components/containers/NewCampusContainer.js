@@ -43,6 +43,9 @@ class NewCampusContainer extends Component {
         address: this.state.address,
         description: this.state.description
     };
+    if(this.state.imageUrl!== ""){
+      campus.imageUrl=this.state.imageUrl;
+    };
     
     // Add new campus in back-end database
     let newCampus = await this.props.addCampus(campus);
