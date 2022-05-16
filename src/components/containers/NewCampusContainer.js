@@ -51,13 +51,13 @@ class NewCampusContainer extends Component {
     await this.props.addCampus(campus)
       .then(newCampus => {
         // Update state, and trigger redirect to show the new campus
-          this.setState({
-            name: "", 
-            address: "", 
-            description: "",
-            imageUrl:"", 
-            redirect: true, 
-            redirectId: newCampus.id
+        this.setState({
+          name: "", 
+          address: "", 
+          description: "",
+          imageUrl:"", 
+          redirect: true, 
+          redirectId: newCampus.id
         });
       })
   }
