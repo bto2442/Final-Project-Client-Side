@@ -1,5 +1,5 @@
 /*==================================================
-EditStudentContainer.js
+EditCampusContainer.js
 
 The Container component is responsible for stateful logic and data fetching, and
 passes data (if any) as props to the corresponding View component.
@@ -11,22 +11,20 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import EditStudentView from '../views/EditStudentView';
-import { editStudentThunk } from '../../store/thunks';
+import EditCampusView from '../views/EditCampusView';
+import { editCampusThunk } from '../../store/thunks';
 
-class EditStudentContainer extends Component {
+class EditCampusContainer extends Component {
 
     // Initialize state
     constructor(props){
       super(props);
       this.state = {
-        firstname: "", 
-        lastname: "", 
-        email: "",
+        name: "", 
+        address: "", 
+        description: "",
         imageUrl: "",
-        gpa:"",
         id: this.props.match.params.id,
-        campusId: null,
         redirect: false
       };
     }
@@ -41,47 +39,41 @@ class EditStudentContainer extends Component {
     // Take action after user click the submit button
     handleSubmit = async event => {
       let validate=true;
-      if(this.state.firstname===""){
-        alert("firstname cannot be empty");
+      if(this.state.name===""){
+        alert("name cannot be empty");
         validate=false;
       }
-      if(this.state.lastname===""){
-        alert("lastname cannot be empty");
+      if(this.state.address===""){
+        alert("address cannot be empty");
         validate=false;
       }
-      if(this.state.email===""){
-        alert("email cannot be empty");
+      if(this.state.description===""){
+        alert("description cannot be empty");
         validate=false;
       }
       if(validate){
         event.preventDefault();  // Prevent browser reload/refresh after submit.
       
         let edit_info = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            id: this.state.id,
-            campusId: this.state.campusId
+            name: this.state.name,
+            address: this.state.address,
+            description: this.state.description,
+            id: this.state.id
             
         };
         if(this.state.imageUrl!== ""){
           edit_info.imageUrl=this.state.imageUrl;
         };
-        if(this.state.gpa!==""){
-          edit_info.gpa=this.state.gpa;
-        }
-        // Edit student in back-end database
-        await this.props.editStudent(edit_info);
+        // Edit campus in back-end database
+        await this.props.editCampus(edit_info);
     
-        // Update state, and trigger redirect to show the edited student
+        // Update state, and trigger redirect to show the edited campus
         this.setState({
-          firstname: "", 
-          lastname: "",
-          email: "",
+          name: "", 
+          address: "",
+          description: "",
           imageUrl: "",
-          gpa:"",
           id:this.state.id,
-          campusId: null, 
           redirect: true, 
         });
       }
@@ -91,37 +83,37 @@ class EditStudentContainer extends Component {
       
     }
   
-    // Render edit student input form
+    // Render edit campus input form
     render() {
-      // Redirect to edited student's page after submit
+      // Redirect to edited campus's page after submit
       if(this.state.redirect) {
-        return (<Redirect to={`/students/${this.state.id}`}/>)
+        return (<Redirect to={`/campuses/${this.state.id}`}/>)
       }
   
       // Display the input form via the corresponding View component
       return (
         <div>
           <Header />
-          <EditStudentView 
+          <EditCampusView 
             handleChange = {this.handleChange} 
             handleSubmit={this.handleSubmit}
-            student={this.props.student}      
+            campus={this.props.campus}      
           />
         </div>          
       );
     }
   }
   
-  // The following input argument is passed to the "connect" function used by "EditStudentContainer" component to connect to Redux Store.
+  // The following input argument is passed to the "connect" function used by "EditCampusContainer" component to connect to Redux Store.
   // The "mapDispatch" argument is used to dispatch Action (Redux Thunk) to Redux Store.
   // The "mapDispatch" calls the specific Thunk to dispatch its action. The "dispatch" is a function of Redux Store.
   const mapDispatch = (dispatch) => {
       return({
-          editStudent: (student) => dispatch(editStudentThunk(student)),
+          editCampus: (campus) => dispatch(editCampusThunk(campus)),
       })
   }
   
   // Export store-connected container by default
-  // EditStudentContainer uses "connect" function to connect to Redux Store and to read values from the Store 
+  // EditCampusContainer uses "connect" function to connect to Redux Store and to read values from the Store 
   // (and re-read the values when the Store State updates).
-  export default connect(null, mapDispatch)(EditStudentContainer);
+  export default connect(null, mapDispatch)(EditCampusContainer);

@@ -7,7 +7,7 @@ It constructs a React component to display all campuses.
 import PropTypes from "prop-types";
 import '../../index.css';
 import { Link } from "react-router-dom";
-import { deleteCampus } from "../../store/actions/actionCreators";
+import { deleteCampus, editCampus } from "../../store/actions/actionCreators";
 
 const AllCampusesView = (props) => {
   const{campus, deleteCampus} = props;
@@ -31,6 +31,9 @@ const AllCampusesView = (props) => {
           <p>{campus.description}</p>
           <img src={campus.imageUrl} alt="campus"></img><br/>
           <button onClick={() => deleteCampus(campus.id)}>Delete</button>
+          <Link to={`/editcampus/${campus.id}`}>
+              <button onClick={() => editCampus(campus.id)}>Edit</button>
+          </Link>
           <hr/>
         </div>
       ))}
