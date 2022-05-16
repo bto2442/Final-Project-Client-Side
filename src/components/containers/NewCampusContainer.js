@@ -36,30 +36,51 @@ class NewCampusContainer extends Component {
 
   // Take action after user click the submit button
   handleSubmit = async event => {
-    event.preventDefault();  // Prevent browser reload/refresh after submit.
+    let validate=true;
+    let string= "";
+      if(this.state.name===""){
+        string+="name cannot be empty\n";
+        validate=false;
+      }
+      if(this.state.address===""){
+        string+="address cannot be empty\n";
+        validate=false;
+      }
+      if(this.state.description===""){
+        string+="description cannot be empty\n";
+        validate=false;
+      }
+      if(validate){
+        event.preventDefault();  // Prevent browser reload/refresh after submit.
 
-    let campus = {
-        name: this.state.name,
-        address: this.state.address,
-        description: this.state.description
-    };
-    if(this.state.imageUrl!== ""){
-      campus.imageUrl=this.state.imageUrl;
-    };
+        let campus = {
+            name: this.state.name,
+            address: this.state.address,
+            description: this.state.description
+        };
+        if(this.state.imageUrl!== ""){
+          campus.imageUrl=this.state.imageUrl;
+        };
+        
+        // Add new campus in back-end database
+        await this.props.addCampus(campus)
+          .then(newCampus => {
+            // Update state, and trigger redirect to show the new campus
+            this.setState({
+              name: "", 
+              address: "", 
+              description: "",
+              imageUrl:"", 
+              redirect: true, 
+              redirectId: newCampus.id
+            });
+          })
+      }
+      else{
+        alert(string);
+        event.returnValue = false
+      }
     
-    // Add new campus in back-end database
-    await this.props.addCampus(campus)
-      .then(newCampus => {
-        // Update state, and trigger redirect to show the new campus
-        this.setState({
-          name: "", 
-          address: "", 
-          description: "",
-          imageUrl:"", 
-          redirect: true, 
-          redirectId: newCampus.id
-        });
-      })
   }
 
   // Unmount when the component is being removed from the DOM:
