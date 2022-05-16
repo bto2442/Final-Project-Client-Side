@@ -5,6 +5,7 @@ The Views component is responsible for rendering web page with data provided by 
 It constructs a React component to display the all students view page.
 ================================================== */
 import { Link } from "react-router-dom";
+import { editStudent } from "../../store/actions/actionCreators";
 
 const AllStudentsView = (props) => {
   const {students, deleteStudent} = props;
@@ -33,6 +34,9 @@ const AllStudentsView = (props) => {
                 <h2>{name}</h2>
               </Link>
               <button onClick={() => deleteStudent(student.id)}>Delete</button>
+              <Link to={`/editstudent`}>
+              <button onClick={() => editStudent(student.id)}>Edit</button>
+              </Link>
               <hr/>
             </div>
           );
