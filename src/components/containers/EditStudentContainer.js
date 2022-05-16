@@ -40,54 +40,44 @@ class EditStudentContainer extends Component {
   
     // Take action after user click the submit button
     handleSubmit = async event => {
-      let validate=true;
-      if(this.state.firstname===""){
-        alert("firstname cannot be empty");
-        validate=false;
-      }
-      if(this.state.lastname===""){
-        alert("lastname cannot be empty");
-        validate=false;
-      }
-      if(this.state.email===""){
-        alert("email cannot be empty");
-        validate=false;
-      }
-      if(validate){
-        event.preventDefault();  // Prevent browser reload/refresh after submit.
-      
-        let edit_info = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            id: this.state.id,
-            campusId: this.state.campusId
-            
-        };
-        if(this.state.imageUrl!== ""){
-          edit_info.imageUrl=this.state.imageUrl;
-        };
-        if(this.state.gpa!==""){
-          edit_info.gpa=this.state.gpa;
-        }
-        // Edit student in back-end database
-        await this.props.editStudent(edit_info);
+      event.preventDefault();  // Prevent browser reload/refresh after submit.
     
-        // Update state, and trigger redirect to show the edited student
-        this.setState({
-          firstname: "", 
-          lastname: "",
-          email: "",
-          imageUrl: "",
-          gpa:"",
-          id:this.state.id,
-          campusId: null, 
-          redirect: true, 
-        });
+      let edit_info = {
+          id: this.state.id,
+      };
+      //checks for new value if there is no new value then retains old value
+      if(this.state.firstname){
+        edit_info.firstname= this.state.firstname;
+      };
+      if(this.state.lastname){
+        edit_info.lastname= this.state.lastname;
+      };
+      if(this.state.email){
+        edit_info.email= this.state.email;
+      };
+      if(this.state.campusId){
+        edit_info.campusId= this.state.campusId;
+      };
+      if(this.state.imageUrl!== ""){
+        edit_info.imageUrl=this.state.imageUrl;
+      };
+      if(this.state.gpa!==""){
+        edit_info.gpa=this.state.gpa;
       }
-      else{
-        event.returnValue = false
-      }
+      // Edit student in back-end database
+      await this.props.editStudent(edit_info);
+  
+      // Update state, and trigger redirect to show the edited student
+      this.setState({
+        firstname: "", 
+        lastname: "",
+        email: "",
+        imageUrl: "",
+        gpa:"",
+        id:this.state.id,
+        campusId: null, 
+        redirect: true, 
+      });
       
     }
   

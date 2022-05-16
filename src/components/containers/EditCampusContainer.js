@@ -38,48 +38,36 @@ class EditCampusContainer extends Component {
   
     // Take action after user click the submit button
     handleSubmit = async event => {
-      let validate=true;
-      if(this.state.name===""){
-        alert("name cannot be empty");
-        validate=false;
-      }
-      if(this.state.address===""){
-        alert("address cannot be empty");
-        validate=false;
-      }
-      if(this.state.description===""){
-        alert("description cannot be empty");
-        validate=false;
-      }
-      if(validate){
-        event.preventDefault();  // Prevent browser reload/refresh after submit.
-      
-        let edit_info = {
-            name: this.state.name,
-            address: this.state.address,
-            description: this.state.description,
-            id: this.state.id
-            
-        };
-        if(this.state.imageUrl!== ""){
-          edit_info.imageUrl=this.state.imageUrl;
-        };
-        // Edit campus in back-end database
-        await this.props.editCampus(edit_info);
+      event.preventDefault();  // Prevent browser reload/refresh after submit.
     
-        // Update state, and trigger redirect to show the edited campus
-        this.setState({
-          name: "", 
-          address: "",
-          description: "",
-          imageUrl: "",
-          id:this.state.id,
-          redirect: true, 
-        });
-      }
-      else{
-        event.returnValue = false
-      }
+      let edit_info = {
+          id: this.state.id
+      };
+      //checks for new value if there is no new value then retains old value
+      if(this.state.name){
+        edit_info.name= this.state.name;
+      };
+      if(this.state.address){
+        edit_info.address= this.state.address;
+      };
+      if(this.state.description){
+        edit_info.description= this.state.description;
+      };
+      if(this.state.imageUrl!== ""){
+        edit_info.imageUrl=this.state.imageUrl;
+      };
+      // Edit campus in back-end database
+      await this.props.editCampus(edit_info);
+  
+      // Update state, and trigger redirect to show the edited campus
+      this.setState({
+        name: "", 
+        address: "",
+        description: "",
+        imageUrl: "",
+        id:this.state.id,
+        redirect: true, 
+      });
       
     }
   
