@@ -17,7 +17,7 @@ const StudentView = (props) => {
         <h1>{student.firstname + " " + student.lastname}</h1>
         <img src={student.imageUrl} alt="student"></img>
         <h2>Email: {student.email}</h2>
-        <h2>GPA: {student.gpa}</h2>
+        <h2>GPA: {student.gpa.toFixed(1)}</h2>
         <h2>This student does not belong to a campus</h2>
       </div>
     );
@@ -29,7 +29,7 @@ const StudentView = (props) => {
       <h1>{student.firstname + " " + student.lastname}</h1>
       <img src={student.imageUrl} alt="student"></img>
       <h2>Email: {student.email}</h2>
-      <h2>GPA: {student.gpa}</h2>
+      <h2>GPA: {student.gpa.toFixed(1)}</h2>
       <div key={student.campus.id}>
         <Link to={`/campuses/${student.campus.id}`}>
            <h2>{student.campus.name}</h2>
