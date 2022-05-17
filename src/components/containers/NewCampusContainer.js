@@ -36,51 +36,60 @@ class NewCampusContainer extends Component {
 
   // Take action after user click the submit button
   handleSubmit = async event => {
-    let validate=true;
-    let string= "";
-      if(this.state.name===""){
-        string+="name cannot be empty\n";
-        validate=false;
-      }
-      if(this.state.address===""){
-        string+="address cannot be empty\n";
-        validate=false;
-      }
-      if(this.state.description===""){
-        string+="description cannot be empty\n";
-        validate=false;
-      }
-      if(validate){
-        event.preventDefault();  // Prevent browser reload/refresh after submit.
-
-        let campus = {
-            name: this.state.name,
-            address: this.state.address,
-            description: this.state.description
-        };
-        if(this.state.imageUrl!== ""){
-          campus.imageUrl=this.state.imageUrl;
-        };
-        
-        // Add new campus in back-end database
-        await this.props.addCampus(campus)
-          .then(newCampus => {
-            // Update state, and trigger redirect to show the new campus
-            this.setState({
-              name: "", 
-              address: "", 
-              description: "",
-              imageUrl:"", 
-              redirect: true, 
-              redirectId: newCampus.id
-            });
-          })
-      }
-      else{
-        alert(string);
-        event.returnValue = false
-      }
+    let validate = true;
+    let string = "";
     
+    // Checks if the required inputs on the form is empty
+    // Displays an error message based on what is missing
+    if(this.state.name === ""){         
+      string += "Name cannot be empty\n";
+      validate = false;
+    }
+    if(this.state.address === ""){
+      string += "Address cannot be empty\n";
+      validate = false;
+    }
+    if(this.state.description === ""){
+      string += "Description cannot be empty\n";
+      validate = false;
+    }
+
+    // If the information submitted is valid, then set the campus information
+    if(validate){
+      event.preventDefault();  // Prevent browser reload/refresh after submit.
+
+      // Set the campus information
+      let campus = {  
+          name: this.state.name,
+          address: this.state.address,
+          description: this.state.description
+      };
+
+      // If the URL is not blank, then change the image URL
+      if(this.state.imageUrl !== ""){
+        campus.imageUrl = this.state.imageUrl;
+      };
+      
+      // Add new campus in back-end database
+      await this.props.addCampus(campus)
+        .then(newCampus => {
+          // Update state, and trigger redirect to show the new campus
+          this.setState({
+            name: "", 
+            address: "", 
+            description: "",
+            imageUrl: "", 
+            redirect: true, 
+            redirectId: newCampus.id
+          });
+        })
+    }
+
+    // If information is not valid, create an alert message
+    else{
+      alert(string);
+      event.returnValue = false
+    }
   }
 
   // Unmount when the component is being removed from the DOM:

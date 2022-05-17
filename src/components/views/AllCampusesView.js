@@ -11,6 +11,7 @@ import { deleteCampus, editCampus } from "../../store/actions/actionCreators";
 
 const AllCampusesView = (props) => {
   const{campus, deleteCampus} = props;
+  
   // If there is no campus, display a message.
   if (!props.allCampuses.length) {
     return <div>There are no campuses.<br></br>
@@ -30,7 +31,7 @@ const AllCampusesView = (props) => {
           <Link to={`/campuses/${campus.id}`}>
             <h2>{campus.name}</h2>
           </Link>
-          <h4>campus id: {campus.id}</h4>
+          <h4>Campus ID: {campus.id}</h4>
           <p>{campus.address}</p>
           <p>{campus.description}</p>
           <img src={campus.imageUrl} alt="campus"></img><br/>

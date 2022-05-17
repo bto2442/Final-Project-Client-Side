@@ -43,19 +43,22 @@ class EditCampusContainer extends Component {
       let edit_info = {
           id: this.state.id
       };
-      //checks for new value if there is no new value then retains old value
-      if(this.state.name){
-        edit_info.name= this.state.name;
+
+      // Checks for new value 
+      // If there is no new value, then retains old value      
+      if(this.state.name){            // Edit campus name
+        edit_info.name = this.state.name;
       };
-      if(this.state.address){
-        edit_info.address= this.state.address;
+      if(this.state.address){         // Edit campus address
+        edit_info.address = this.state.address;
       };
-      if(this.state.description){
-        edit_info.description= this.state.description;
+      if(this.state.description){     // Edit campus description
+        edit_info.description = this.state.description;
       };
-      if(this.state.imageUrl!== ""){
-        edit_info.imageUrl=this.state.imageUrl;
+      if(this.state.imageUrl!== ""){  // Edit campus image URL
+        edit_info.imageUrl = this.state.imageUrl;
       };
+
       // Edit campus in back-end database
       await this.props.editCampus(edit_info);
   
