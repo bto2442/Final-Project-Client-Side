@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+#homeImage{
+  height: auto;
+  width: auto;
+  max-width: 1000px;
+  max-height: 1000px;
+}
 
 img{
   height: auto;
