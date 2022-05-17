@@ -38,36 +38,46 @@ class NewStudentContainer extends Component {
 
   // Take action after user click the submit button
   handleSubmit = async event => {
-    let validate=true;
-    let string="";
-    if(this.state.firstname===""){
-      string+="firstname cannot be empty \n";
-      validate=false;
+    let validate = true;
+    let string = "";
+
+    // Checks if the required inputs on the form is empty
+    // Displays an error message based on what is missing
+    if(this.state.firstname === ""){
+      string += "Firstname cannot be empty \n";
+      validate = false;
     }
-    if(this.state.lastname===""){
-      string+="lastname cannot be empty \n";
-      validate=false;
+    if(this.state.lastname === ""){
+      string += "Fastname cannot be empty \n";
+      validate = false;
     }
-    if(this.state.email===""){
-      string+="email cannot be empty \n";
-      validate=false;
+    if(this.state.email === ""){
+      string += "Email cannot be empty \n";
+      validate = false;
     }
+
+    // If the information submitted is valid, then set the student information
     if(validate){
       event.preventDefault();  // Prevent browser reload/refresh after submit.
     
+      // Set student information
       let student = {
-          firstname: this.state.firstname,
-          lastname: this.state.lastname,
-          campusId: this.state.campusId,
-          email:this.state.email,
-          
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        campusId: this.state.campusId,
+        email: this.state.email,
       };
-      if(this.state.imageUrl!== ""){
-        student.imageUrl=this.state.imageUrl;
+
+      // If the URL is not blank, then change the image URL
+      if(this.state.imageUrl !== ""){
+        student.imageUrl = this.state.imageUrl;
       };
-      if(this.state.gpa!==""){
-        student.gpa=this.state.gpa;
+
+      // If the URL is not blank, then change the GPA
+      if(this.state.gpa !== ""){
+        student.gpa = this.state.gpa;
       }
+
       // Add new student in back-end database
       let newStudent = await this.props.addStudent(student);
   
@@ -77,7 +87,7 @@ class NewStudentContainer extends Component {
         lastname: "",
         email: "",
         imageUrl: "",
-        gpa:"", 
+        gpa: "", 
         campusId: null, 
         redirect: true, 
         redirectId: newStudent.id
